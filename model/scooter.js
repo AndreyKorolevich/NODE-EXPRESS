@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 const path = require('path');
-const { resolve } = require('path');
 
 class Scooter {
     constructor(model, price, picture, description) {
@@ -53,8 +52,28 @@ class Scooter {
 
      static async getScoot(id) {
         const scooters = await Scooter.getAll();
-        return scooters.filter(elem => {
-            elem.id === id
+        return scooters.find(elem => elem.id === id)
+    }
+
+    static async edit(scooter) {
+        console.log(scooter)
+        const scooters = await Scooter.getAll()
+
+        const index = scooters.findIndex(elem => elem.id === scooter.id);
+        scooters[index] = scooter;
+
+        return new Promise((resolve, reject) => {
+            fs.writeFile(
+                path.join(__dirname, '../data', 'scooters.json'),
+                JSON.stringify(scooters),
+                (err) => {
+                    if(err) {
+                        reject(err);
+                    } else {
+                        resolve()    
+                    }
+                }
+            )
         })
     }
 

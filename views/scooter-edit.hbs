@@ -1,0 +1,32 @@
+<h1>Edit {{scooter.model}}</h1>
+
+<form action="/scooters/edit" method="POST">
+    <div class="input-field">
+        <input type="text" name="model" id="model" class="validate" value="{{scooter.model}}" required>
+        <label for="model">Model scooter</label>
+        <span class="helper-text" data-error="Text model name"></span>
+    </div>
+
+    <div class="input-field">
+        <input type="number" name="price" id="price" class="validate" value="{{scooter.price}}"  required min="5">
+        <label for="price">Cost scooter</label>
+        <span class="helper-text" data-error="Text cost model"></span>
+    </div>
+
+    <div class="input-field">
+        <input type="text" name="picture" id="picture" class="validate" value="{{scooter.picture}}"  required>
+        <label for="picture">Picture`s URL</label>
+        <span class="helper-text" data-error="Text picture`s URL"></span>
+    </div>
+
+    <div class="input-field">
+        <textarea  name="description" id="description" class="validate materialize-textarea" required>
+            {{scooter.description}}
+            </textarea>
+        <label for="description">Description</label>
+        <span class="helper-text" data-error="Text description"></span>
+    </div>
+    <input type="hidden" name="id" value="{{scooter.id}}">
+
+    <button class="btn btn-primary">Edit scooter</button>
+</form>

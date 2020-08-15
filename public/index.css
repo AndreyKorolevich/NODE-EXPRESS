@@ -5,10 +5,3 @@
 .price {
     font-size: 2rem;
 }
-
-.scooter {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
