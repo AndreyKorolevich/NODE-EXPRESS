@@ -19,6 +19,12 @@
             {{else}}
                 <li><a href="/add">Add scooter</a></li>
             {{/if}}
+
+              {{#if isShopcart}}
+                <li class="active"><a href="/shopcart">Shopcart</a></li>
+            {{else}}
+                <li><a href="/shopcart">Shopcart</a></li>
+            {{/if}}
         </ul>
     </div>
 </nav>

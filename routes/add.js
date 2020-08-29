@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const Scooter = require('../model/scooter.js')
+const Scooter = require('../model/scooter-model.js')
 const router = Router()
 
 router.get('/', (req, res) => {

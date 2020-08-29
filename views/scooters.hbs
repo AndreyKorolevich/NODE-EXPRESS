@@ -13,9 +13,13 @@
                 <span class="card-title">{{model}}</span>
                 <p>{{description}}</p>
             </div>
-            <div class="card-action">
+            <div class="card-action buttons">
                 <a href='/scooters/{{id}}' target="_blank">More detailed</a>
                 <a href='/scooters/{{id}}/edit?red=true'>Edit</a>
+                <form action="/shopcart/add" method="POST">
+                <input type="hidden" name="id" value="{{id}}">
+                <button type="submit" class="btn">Buy</button>
+                </form>
             </div>
         </div>
     </div>

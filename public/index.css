@@ -5,3 +5,10 @@
 .price {
     font-size: 2rem;
 }
+
+
+.col .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}

@@ -1,0 +1,28 @@
+<h1>Shopcart</h1>
+<div id="shopcart">
+    {{#if scooters.length}}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Count</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each scooters}}
+            <tr>
+                <td>{{model}}</td>
+                <td>{{count}}</td>
+                <td>
+                    <button class="btn btn-small delete" data-id="{{id}}">Delete</button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <p><strong>Price</strong> <span class="price">{{price}}</span></p>
+    {{else}}
+    <p>There`s no scooters in Shopcart</p>
+    {{/if}}
+</div>
