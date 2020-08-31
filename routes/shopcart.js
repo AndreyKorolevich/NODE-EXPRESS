@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const Shopcart = require('../model/shopcart-model')
-const Scooter = require('../model/scooter-model.js');
+const Scooter = require('../model/scooter-module.js');
 const router = Router()
 
 router.get('/', async (req, res) => {
