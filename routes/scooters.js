@@ -11,7 +11,7 @@ const refactId = (elem) => {
 
 router.get('/', async (req, res) => {
     try {
-        const scooters = await Scooter.find({}).lean();
+        const scooters = await Scooter.find({}).populate('userId', 'email name').lean();
         scooters.forEach(elem => {
             elem = refactId(elem)
         })
