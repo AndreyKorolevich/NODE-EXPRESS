@@ -2,9 +2,20 @@ const { Router } = require('express');
 const Scooter = require('../model/scooter-module.js')
 const router = Router()
 
+const refactId = (elem) => {
+    const id = elem._id;
+    delete elem._id;
+    elem.id = id;
+    return elem
+}
+
 router.get('/', async (req, res) => {
     try {
-        const scooters = await Scooter.find({}).lean()
+        const scooters = await Scooter.find({}).lean();
+        scooters.forEach(elem => {
+            elem = refactId(elem)
+        })
+
         res.render('scooters', {
             title: 'scooters',
             isScooters: true,
@@ -18,10 +29,12 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const scooter = await Scooter.findById(req.params.id);     
+        let scooter = await Scooter.findById(req.params.id).lean();
+        scooter = refactId(scooter)
+
         res.render('scooter', {
             layout: 'new',
-            title: `Scooter`,
+            title: `Scooter ${scooter.model}`,
             scooter
         })
     } catch (err) {
@@ -34,7 +47,8 @@ router.get('/:id/edit', async (req, res) => {
         if (!req.query.red) {
             return res.redirect('/')
         }
-        const scooter = await Scooter.findById(req.params.id);
+        let scooter = await Scooter.findById(req.params.id).lean();
+        scooter = refactId(scooter)
         res.render('scooter-edit', {
             title: `Scooter-edit`,
             scooter
@@ -45,10 +59,19 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 router.post('/edit', async (req, res) => {
-    const {id} = req.body;
+    const { id } = req.body;
     delete req.body.id;
     await Scooter.findByIdAndUpdate(id, req.body);
-    return res.redirect('/');
+    return res.redirect('/scooters');
+})
+
+router.post('/delete', async (req, res) => {
+    try {
+        await Scooter.deleteOne({ _id: req.body.id });
+        return res.redirect('/scooters');
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 module.exports = router
