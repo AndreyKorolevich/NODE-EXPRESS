@@ -12,10 +12,10 @@
         <tbody>
             {{#each scooters}}
             <tr>
-                <td>{{model}}</td>
+                <td>{{scooter.model}}</td>
                 <td>{{count}}</td>
                 <td>
-                    <button class="btn btn-small delete" data-id="{{id}}">Delete</button>
+                    <button class="btn btn-small red delete" data-id="{{scooter._id}}">Delete</button>
                 </td>
             </tr>
             {{/each}}

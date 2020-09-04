@@ -1,27 +1,41 @@
 const { Router } = require('express');
-const Shopcart = require('../model/shopcart-model')
-const Scooter = require('../model/scooter-module.js');
+const Scooter = require('../model/scooter-model.js');
 const router = Router()
 
 router.get('/', async (req, res) => {
-    const shopcart = await Shopcart.getAll();
+    const shoopElements = await req.user.shoopCart.elements;
+    const scooters = [];
+
+    async function helper(arr) {
+        for (const item of arr) {
+            let scooter = await Scooter.findById(item.scooterId).lean();
+            scooters.push({
+                scooter,
+                count: item.count
+            })
+        }
+    }
+    await helper(shoopElements)
+    const price = scooters.reduce((sum, elem) => {
+        return sum + (elem.scooter.price * elem.count)
+    }, 0)
     res.render('shopcart', {
         title: 'Shopcart',
         isShopcart: true,
-        scooters: shopcart.scooters,
-        price: shopcart.price
+        scooters,
+        price
     })
 })
 
 router.post('/add', async (req, res) => {
-    const scooter = await Scooter.getScoot(req.body.id);
-    await Shopcart.add(scooter);
-    res.redirect('/shopcart')
+    const scooter = await Scooter.findById(req.body.id);
+    await req.user.addToShoopCart(scooter);
+    res.redirect('/shopcart');
 })
 
 router.delete('/delete/:id', async (req, res) => {
-    const shopcart = await Shopcart.delete(req.params.id)
-    res.status(200).json(shopcart)
+    const shopcart = await Shopcart.delete(req.params.id);
+    res.status(200).json(shopcart);
 })
 
 module.exports = router

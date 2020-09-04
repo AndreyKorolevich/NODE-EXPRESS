@@ -19,7 +19,7 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 app.use(async (req, res, next) => {
     try {
-        const user = await User.findById('5f50a8638718723f6c43e0e3');
+        const user = await User.findById('5f50aa8ad1e10018c0016864');
         req.user = user;
         next();
     } catch (err) {
