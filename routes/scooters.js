@@ -1,13 +1,7 @@
+const {refactId}  = require('../public/helper-functions.js');
 const { Router } = require('express');
 const Scooter = require('../model/scooter-model.js')
 const router = Router()
-
-const refactId = (elem) => {
-    const id = elem._id;
-    delete elem._id;
-    elem.id = id;
-    return elem
-}
 
 router.get('/', async (req, res) => {
     try {
@@ -31,7 +25,6 @@ router.get('/:id', async (req, res) => {
     try {
         let scooter = await Scooter.findById(req.params.id).lean();
         scooter = refactId(scooter)
-
         res.render('scooter', {
             layout: 'new',
             title: `Scooter ${scooter.model}`,

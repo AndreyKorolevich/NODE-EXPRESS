@@ -11,30 +11,31 @@ document.querySelectorAll('.price').forEach(elem => {
 })
 
 
-const shopcartHtml = document.getElementById('shopcart')
-if (shopcartHtml) {
-    shopcart.addEventListener('click', event => {
+const shopCartHtml = document.getElementById('shopcart')
+if (shopCartHtml) {
+    shopCartHtml.addEventListener('click', event => {
         if (event.target.classList.contains('delete')) {
             const id = event.target.dataset.id;
 
             fetch('/shopcart/delete/' + id, {
                 method: 'delete'
             }).then(res => res.json())
-                .then(shopcart => {
-                    if (shopcart.scooters.length) {
-                        const html = shopcart.scooters.map(elem => {
+                .then(shopCart => {
+                    if (shopCart.scooters.length) {
+                        const html = shopCart.scooters.map(elem => {
+                        console.log(elem)
                             return ` <tr>
-                            <td>${elem.model}</td>
+                            <td>${elem.scooter.model}</td>
                             <td>${elem.count}</td>
                             <td>
-                                <button class="btn btn-small delete" data-id="${elem.id}">Delete</button>
+                                <button class="btn btn-small red delete" data-id="${elem.scooter._id}">Delete</button>
                             </td>
                         </tr>`
                         }).join('')
-                        shopcartHtml.querySelector('tbody').innerHTML = html
-                        shopcartHtml.querySelector('.price').textContent = convertPrice(shopcart.price)
+                        shopCartHtml.querySelector('tbody').innerHTML = html
+                        shopCartHtml.querySelector('.price').textContent = convertPrice(shopCart.price)
                     } else {
-                        shopcartHtml.innerHTML = '<p>There`s no scooters in Shopcart</p>'
+                        shopCartHtml.innerHTML = '<p>There`s no scooters in Shopcart</p>'
                     }
                 })
         }

@@ -8,7 +8,7 @@ const user = new Schema({
         type: String,
         required: true
     },
-    shoopCart: {
+    shopCart: {
         elements: [
             {
                 count: {
@@ -26,13 +26,11 @@ const user = new Schema({
     },
 })
 
-user.methods.addToShoopCart = function(scooter) {
-    const elements = [...this.shoopCart.elements];
+user.methods.addToShopCart = function(scooter) {
+    const elements = [...this.shopCart.elements];
    
     const index = elements.findIndex(elem => {
-        console.log(elem.scooterId.toString())
-        console.log(scooter._id.toString())
-        return elem.scooterId.toString() === scooter._id.toString()
+        return elem.scooterId.toString() === scooter._id.toString();
     })
 
     if (index >= 0) {
@@ -43,9 +41,21 @@ user.methods.addToShoopCart = function(scooter) {
              scooterId: scooter._id
          })
     }  
-     this.shoopCart = {elements}
-     console.log(this.shoopCart)
+     this.shopCart = {elements}
      return this.save()
+}
+user.methods.deleteScooter = function(id) {
+    let elements = [...this.shopCart.elements];
+    const index = elements.findIndex(elem => {
+        return elem.scooterId.toString() === id.toString();
+    })
+    if(elements[index].count === 1) {
+        elements = elements.filter(elem =>  elem.scooterId.toString() !== id.toString())
+    }else {
+        elements[index].count--;
+    }
+    this.shopCart = {elements}
+    return this.save()
 }
 
 module.exports = model('User', user);

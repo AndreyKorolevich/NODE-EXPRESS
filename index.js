@@ -19,7 +19,7 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 app.use(async (req, res, next) => {
     try {
-        const user = await User.findById('5f50aa8ad1e10018c0016864');
+        const user = await User.findById('5f5310c1b85ee22200059ec0');
         req.user = user;
         next();
     } catch (err) {
@@ -50,7 +50,7 @@ async function start() {
             newUser = new User({
                 email: 'pop@mail.ru',
                 name: 'lop',
-                shoopCart: { elements: [] }
+                shopCart: { elements: [] }
             })
             await newUser.save();
         }
