@@ -12,7 +12,6 @@ const sumPrice = (arr) => {
 
 router.get('/', async (req, res) => {
     const shopElements = await req.user.shopCart.elements;
-
     const scooters = await helper(shopElements);
     const price = sumPrice(scooters);
     res.render('shopcart', {

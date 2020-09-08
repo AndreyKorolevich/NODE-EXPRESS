@@ -18,6 +18,7 @@ const user = new Schema({
                 },
                 scooterId: {
                     type: Schema.Types.ObjectId,
+                    ref: 'Scooter',
                     require: true
                 }
             }
@@ -44,6 +45,7 @@ user.methods.addToShopCart = function(scooter) {
      this.shopCart = {elements}
      return this.save()
 }
+
 user.methods.deleteScooter = function(id) {
     let elements = [...this.shopCart.elements];
     const index = elements.findIndex(elem => {
@@ -58,4 +60,8 @@ user.methods.deleteScooter = function(id) {
     return this.save()
 }
 
+user.methods.cleanShopCart = function() {
+    this.shopCart = {elements: []};
+    return this.save();
+}
 module.exports = model('User', user);
