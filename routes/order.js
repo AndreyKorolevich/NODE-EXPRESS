@@ -1,31 +1,54 @@
-const {Router} = require('express');
-const Order = require('../model/order-model');
+const { Router } = require('express');
 const {helper} = require("../public/helper-functions.js");
+const Order = require('../model/order-model');
+const Scooter = require('../model/scooter-model.js');
 const router = Router();
+
+const createArrScooters = async (arr) => {
+    const scooters = [];
+    for (const item of arr) {
+        let scooter = await Scooter.findById(item.scooter._id).lean();
+        scooters.push({
+            scooter,
+            count: item.count
+        })
+    }
+    return scooters;
+}
+
+const sumPrice = (arr) => {
+    return arr.reduce((sum, elem) => {
+        return sum + (elem.scooter.price * elem.count)
+    }, 0);
+}
 
 router.get('/', async (req, res) => {
     try {
-        const order = await Order.find({'user.userId': req.user._id})
-            .populate('user.userId');
-        console.log(order)
+        const order = await Order.find({ 'user.userId': req.user._id }).populate('user.userId');
+        const ordersArr = [];
+        for (const elem of order) {
+            const scooters = await createArrScooters(elem.scooters);
+            ordersArr.push({
+                scooters,
+                user: {
+                    userId: elem.user.userId._id,
+                    name: elem.user.userId.name
+                },
+                price: sumPrice(scooters),
+                date: elem.date,
+                idOrder: elem._id
+            })
+        }
         res.render('order', {
             title: 'Order',
             isOrder: true,
-            order: order.map(elem => {
-                    return {
-                        ...elem._doc,
-                        price: elem.scooters.reduce((total, e) => {
-                            return total += e.count * e.scooter.price
-                        }, 0)
-                    }
-                }
-            )
+            ordersArr
         })
-
     } catch (err) {
-        console.log(err)
+    console.log(err)
     }
 })
+
 
 router.post('/', async (req, res) => {
     try {

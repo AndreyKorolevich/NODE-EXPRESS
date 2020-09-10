@@ -1,5 +1,4 @@
 const {helper} = require("../public/helper-functions.js");
-const {refactId}  = require('../public/helper-functions.js');
 const {Router} = require('express');
 const Scooter = require('../model/scooter-model.js');
 const router = Router();

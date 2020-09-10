@@ -5,10 +5,25 @@ const convertPrice = (price) => {
     }).format(price)
 }
 
+const convertDate = date => {
+    return new Intl.DateTimeFormat('en-US', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+    }).format(new Date(date))
+}
 
 document.querySelectorAll('.price').forEach(elem => {
     elem.textContent = convertPrice(elem.textContent)
 })
+
+document.querySelectorAll('.date').forEach(elem => {
+    elem.textContent = convertDate(elem.textContent)
+})
+
 
 
 const shopCartHtml = document.getElementById('shopcart')

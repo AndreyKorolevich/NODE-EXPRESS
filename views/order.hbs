@@ -1,26 +1,30 @@
 <h1>Order</h1>
 
-{{#if order.length}}
-    {{#each order}}
-        <div class="row">
-            <div class="col s6 offset-s3">
-                <div class="card">
-                    <div class="card-content">
+{{#if ordersArr.length}}
+{{#each ordersArr}}
+<div class="row">
+    <div class="col s6 offset-s3">
+        <div class="card">
+            <div class="card-content">
                 <span class="card-title">
-                    Order <smal>{{_id}}</smal>
+                    Order <small>{{idOrder}}</small>
                 </span>
-                        <p>{{date}}</p>
-                        <p><em>{{user.userId.name}}</em> {{user.userId.email}}</p>
-                        <ol>
-
-                        </ol>
-                        <hr>
-                        <p>Price: <span class="price"></span></p>
-                    </div>
-                </div>
+                <p class="date">Date {{date}}</p>
+                <p>{{user.name}}</p>
+                <ol>
+                    {{#each scooters}}
+                    <li>
+                        {{scooter.model}} (x <strong>{{count}}</strong>)
+                    </li>
+                    {{/each}}
+                </ol>
+                <hr>
+                <p>Price: <span class="price">{{price}}</span></p>
             </div>
         </div>
-    {{/each}}
+    </div>
+</div>
+{{/each}}
 {{else}}
-    <p>There`s no orders</p>
+<p>There`s no orders</p>
 {{/if}}
