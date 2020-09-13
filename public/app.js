@@ -56,3 +56,6 @@ if (shopCartHtml) {
         }
     })
 }
+
+
+M.Tabs.init(document.querySelectorAll('.tabs'));
