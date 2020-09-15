@@ -14,28 +14,31 @@
                 <li><a href="/scooters">Scooters</a></li>
             {{/if}}
 
-            {{#if isAdd}}
-                <li class="active"><a href="/">Add scooter</a></li>
-            {{else}}
-                <li><a href="/add">Add scooter</a></li>
-            {{/if}}
+            {{#if isAuth}}
+                {{#if isAdd}}
+                     <li class="active"><a href="/">Add scooter</a></li>
+                {{else}}
+                     <li><a href="/add">Add scooter</a></li>
+                {{/if}}
 
-              {{#if isShopcart}}
-                <li class="active"><a href="/shopcart">Shopcart</a></li>
-            {{else}}
-                <li><a href="/shopcart">Shopcart</a></li>
-            {{/if}}
+                {{#if isShopcart}}
+                    <li class="active"><a href="/shopcart">Shopcart</a></li>
+                {{else}}
+                    <li><a href="/shopcart">Shopcart</a></li>
+                {{/if}}
+                {{#if isOrder}}
+                    <li class="active"><a href="/order">Order</a></li>
+                {{else}}
+                    <li><a href="/order">Order</a></li>
+                {{/if}}
 
-            {{#if isOrder}}
-                <li class="active"><a href="/order">Order</a></li>
+                <li><a href="/auth/logout">Log out</a></li>
             {{else}}
-                <li><a href="/order">Order</a></li>
-            {{/if}}
-
-            {{#if isLogin}}
-                <li class="active"><a href="/auth/login#login">Login</a></li>
-            {{else}}
-                <li><a href="/auth/login#login">Login</a></li>
+                {{#if isLogin}}
+                    <li class="active"><a href="/auth/login#login">Login</a></li>
+                {{else}}
+                    <li><a href="/auth/login#login">Login</a></li>
+                {{/if}}
             {{/if}}
         </ul>
     </div>

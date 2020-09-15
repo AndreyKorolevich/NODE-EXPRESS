@@ -1,6 +1,7 @@
 const { Router } = require('express');
-const Scooter = require('../model/scooter-model.js')
-const router = Router()
+const User = require('../model/user-model');
+const router = Router();
+
 
 router.get('/login', (req, res) => {
     res.render('auth/login', {
@@ -9,21 +10,22 @@ router.get('/login', (req, res) => {
     })
 })
 
-router.post('/', async (req, res) => {
-    const scooter = new Scooter({
-        model: req.body.model,
-        price: req.body.price,
-        picture: req.body.picture,
-        description: req.body.description,
-        userId: req.user._id
-    });
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/auth/login#login');
+    })
+})
 
-    try {
-        await scooter.save()
-        res.redirect('/scooters')
-    } catch (err) {
-        console.log(err)
-    }
+router.post('/login', async (req, res) => {
+    const user = await User.findById('5f5310c1b85ee22200059ec0');
+    req.session.user = user
+    req.session.isAuthenticated = true;
+    req.session.save(err => {
+        if (err) {
+            throw err;
+        }
+        res.redirect('/')
+    })
 })
 
 module.exports = router
