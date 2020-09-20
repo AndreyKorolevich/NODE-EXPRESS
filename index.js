@@ -11,6 +11,7 @@ const shopcartRouter = require('./routes/shopcart');
 const orderRouter = require('./routes/order');
 const authRouter = require('./routes/auth');
 const costomMiddleware = require('./middleware/variables');
+const userMIddleware = require('./middleware/user-middleware');
 const MONGODB_URL = 'mongodb+srv://Andrew:arF5vQFnnT12KkLT@cluster0.yrthm.mongodb.net/store';
 const app = express();
 
@@ -38,7 +39,10 @@ app.use(session({
     saveUninitialized: false,
     store
 }));
+
 app.use(costomMiddleware);
+app.use(userMIddleware);
+
 app.use('/', homeRouter);
 app.use('/add', addRouter);
 app.use('/scooters', scootersRouter);

@@ -1,6 +1,7 @@
 const {refactId}  = require('../public/helper-functions.js');
 const { Router } = require('express');
-const Scooter = require('../model/scooter-model.js')
+const Scooter = require('../model/scooter-model.js');
+const auth = require('../middleware/auth-middleware'); 
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -35,7 +36,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', auth, async (req, res) => {
     try {
         if (!req.query.red) {
             return res.redirect('/')
@@ -51,14 +52,14 @@ router.get('/:id/edit', async (req, res) => {
     }
 })
 
-router.post('/edit', async (req, res) => {
+router.post('/edit', auth, async (req, res) => {
     const { id } = req.body;
     delete req.body.id;
     await Scooter.findByIdAndUpdate(id, req.body);
     return res.redirect('/scooters');
 })
 
-router.post('/delete', async (req, res) => {
+router.post('/delete', auth, async (req, res) => {
     try {
         await Scooter.deleteOne({ _id: req.body.id });
         return res.redirect('/scooters');

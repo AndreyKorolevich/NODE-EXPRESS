@@ -2,6 +2,7 @@ const { Router } = require('express');
 const {helper} = require("../public/helper-functions.js");
 const Order = require('../model/order-model');
 const Scooter = require('../model/scooter-model.js');
+const auth = require('../middleware/auth-middleware'); 
 const router = Router();
 
 const createArrScooters = async (arr) => {
@@ -22,7 +23,7 @@ const sumPrice = (arr) => {
     }, 0);
 }
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const order = await Order.find({ 'user.userId': req.user._id }).populate('user.userId');
         const ordersArr = [];
@@ -50,7 +51,7 @@ router.get('/', async (req, res) => {
 })
 
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     try {
         const shopElements = await req.user.shopCart.elements;
         const scooters = await helper(shopElements);
