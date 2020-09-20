@@ -19,6 +19,7 @@
                 <a href='/scooters/{{id}}/edit?red=true'>Edit</a>
                 <form action="/shopcart/add" method="POST">
                 <input type="hidden" name="id" value="{{id}}">
+                <input type="hidden" name="_csrf" value="{{@root.csurf}}">
                 <button type="submit" class="btn">Buy</button>
                 {{/if}}
                 </form>

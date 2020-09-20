@@ -20,6 +20,8 @@
                     <label for="password">Password</label>
                     <span class="helper-text" data-error="Text password"></span>
                 </div>
+
+                <input type="hidden" name="_csrf" value="{{csurf}}">
                 <button class="btn btn-primary" type="submit">Login</button>
             </form>
         </div>
@@ -49,6 +51,7 @@
                     <label for="confirm">Repeat password</label>
                     <span class="helper-text" data-error="Text your password again"></span>
                 </div>
+                <input type="hidden" name="_csrf" value="{{csurf}}">
                 <button class="btn btn-primary" type="submit">Register</button>
             </form>
         </div>

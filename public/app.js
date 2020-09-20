@@ -31,9 +31,13 @@ if (shopCartHtml) {
     shopCartHtml.addEventListener('click', event => {
         if (event.target.classList.contains('delete')) {
             const id = event.target.dataset.id;
+            const csurf = event.target.dataset.csurf;
 
             fetch('/shopcart/delete/' + id, {
-                method: 'delete'
+                method: 'delete', 
+                headers: {
+                    'X-XSRF-TOKEN': csurf
+                }
             }).then(res => res.json())
                 .then(shopCart => {
                     if (shopCart.scooters.length) {

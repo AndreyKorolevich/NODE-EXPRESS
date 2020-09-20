@@ -1,32 +1,35 @@
 <h1>Shopcart</h1>
 <div id="shopcart">
     {{#if scooters.length}}
-        <table>
-            <thead>
+    <table>
+        <thead>
             <tr>
                 <th>Name</th>
                 <th>Count</th>
                 <th>Actions</th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             {{#each scooters}}
-                <tr>
-                    <td>{{scooter.model}}</td>
-                    <td>{{count}}</td>
-                    <td>
-                        <button class="btn btn-small red delete" data-id="{{scooter._id}}">Delete</button>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{scooter.model}}</td>
+                <td>{{count}}</td>
+                <td>
+                    <button class="btn btn-small red delete" data-id="{{scooter._id}}" data-csurf="{{@root.csurf}}">
+                        Delete
+                    </button>
+                </td>
+            </tr>
             {{/each}}
-            </tbody>
-        </table>
-        <p><strong>Price</strong> <span class="price">{{price}}</span></p>
+        </tbody>
+    </table>
+    <p><strong>Price</strong> <span class="price">{{price}}</span></p>
 
-        <form action="/order" method="POST">
-            <button type="submit" class="btn btn-primary">Order</button>
-        </form>
+    <form action="/order" method="POST">
+        <input type="hidden" name="_csrf" value="{{csurf}}">
+        <button type="submit" class="btn btn-primary">Order</button>
+    </form>
     {{else}}
-        <p>There`s no scooters in Shopcart</p>
+    <p>There`s no scooters in Shopcart</p>
     {{/if}}
 </div>

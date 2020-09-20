@@ -27,10 +27,11 @@
         <span class="helper-text" data-error="Text description"></span>
     </div>
     <input type="hidden" name="id" value="{{scooter.id}}">
-
+    <input type="hidden" name="_csrf" value="{{csurf}}">
     <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 <form action="/scooters/delete" method="POST" class="form-delete">
     <input type="hidden" name="id" value="{{scooter.id}}">
+    <input type="hidden" name="_csrf" value="{{csurf}}">
     <button class="btn red">Delete</button>
 </form>
