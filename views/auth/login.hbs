@@ -7,6 +7,10 @@
             </ul>
         </div>
         <div id="login" class="col s6 offset-s3">
+
+            {{#if logError}}
+                 <p class="error">{{logError}}</p>
+            {{/if}}
             <h3>Log in shoop</h3>
             <form action="/auth/login" method="POST">
                 <div class="input-field">
@@ -26,8 +30,11 @@
             </form>
         </div>
         <div id="register" class="col s6 offset-s3">
+            {{#if regError}}
+                 <p class="error">{{regError}}</p>
+            {{/if}}
             <h3>Create account</h3>
-            <form action="/auth/register" method="POST">
+            <form action="/auth/register" method="POST" novalidate>
                 <div class="input-field">
                     <input type="email" name="email" id="remail" class="validate" required>
                     <label for="remail">Email</label>
@@ -46,9 +53,9 @@
                     <span class="helper-text" data-error="Text password"></span>
                 </div>
 
-                  <div class="input-field">
-                    <input type="password" name="confirm" id="confirm" class="validate" required>
-                    <label for="confirm">Repeat password</label>
+                <div class="input-field">
+                    <input type="password" name="repeat" id="repeat" class="validate" required>
+                    <label for="repeat">Repeat password</label>
                     <span class="helper-text" data-error="Text your password again"></span>
                 </div>
                 <input type="hidden" name="_csrf" value="{{csurf}}">
