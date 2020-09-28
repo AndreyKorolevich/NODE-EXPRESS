@@ -2,6 +2,8 @@ const {refactId}  = require('../public/helper-functions.js');
 const { Router } = require('express');
 const Scooter = require('../model/scooter-model.js');
 const auth = require('../middleware/auth-middleware'); 
+const { validationResult } = require('express-validator/check');
+const { scooterValidators } = require('../public/validator');
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -52,8 +54,22 @@ router.get('/:id/edit', auth, async (req, res) => {
     }
 })
 
-router.post('/edit', auth, async (req, res) => {
+router.post('/edit', auth, scooterValidators, async (req, res) => {
+    const errors = validationResult(req);
     const { id } = req.body;
+    if (!errors.isEmpty()) {
+        return res.status(422).render('add', {
+            title: 'add',
+            isAdd: true,
+            error: errors.array()[0].msg,
+            data: {
+                model: req.body.model,
+                price: req.body.price,
+                picture: req.body.picture,
+                description: req.body.description 
+            }
+        })
+    }
     delete req.body.id;
     await Scooter.findByIdAndUpdate(id, req.body);
     return res.redirect('/scooters');

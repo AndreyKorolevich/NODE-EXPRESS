@@ -56,4 +56,15 @@ exports.loginValidators = [
             } catch (error) {
                 console.log(error)
             }
-        })]
+        })];
+
+exports.scooterValidators = [
+    body('model', 'The mimimum length of the model name is 2 characters')
+    .isLength({min: 2})
+    .trim(),
+    body('price', 'Enter the correct price').isNumeric(),
+    body('picture', 'Enter the correct url').isURL(),
+    body('description', 'The maximum length of the name is 150 characters')
+    .isLength({max: 150})
+    .trim(),
+]       

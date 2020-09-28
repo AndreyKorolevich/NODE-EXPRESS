@@ -1,6 +1,9 @@
 <h1>Edit {{scooter.model}}</h1>
+{{#if error}}
+    <p class="error">{{error}}</p>
+{{/if}}
 
-<form action="/scooters/edit" method="POST">
+<form action="/scooters/edit" method="POST" novalidate>
     <div class="input-field">
         <input type="text" name="model" id="model" class="validate" value="{{scooter.model}}" required>
         <label for="model">Model scooter</label>

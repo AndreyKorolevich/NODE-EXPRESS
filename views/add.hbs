@@ -1,26 +1,30 @@
 <h1>Add new scooters</h1>
-
-<form action="/add" method="POST">
+{{#if error}}
+    <p class="error">{{error}}</p>
+{{/if}}
+<form action="/add" method="POST" novalidate>
     <div class="input-field">
-        <input type="text" name="model" id="model" class="validate" required>
+        <input type="text" name="model" id="model" class="validate" required value="{{data.model}}">
         <label for="model">Model scooter</label>
         <span class="helper-text" data-error="Text model name"></span>
     </div>
 
     <div class="input-field">
-        <input type="number" name="price" id="price" class="validate" required min="5">
+        <input type="number" name="price" id="price" class="validate" required min="5" value="{{data.price}}">
         <label for="price">Cost scooter</label>
         <span class="helper-text" data-error="Text cost model"></span>
     </div>
 
     <div class="input-field">
-        <input type="text" name="picture" id="picture" class="validate" required>
+        <input type="text" name="picture" id="picture" class="validate" required value="{{data.picture}}">
         <label for="picture">Picture`s URL</label>
         <span class="helper-text" data-error="Text picture`s URL"></span>
     </div>
 
     <div class="input-field">
-        <textarea  name="description" id="description" class="validate materialize-textarea" required></textarea>
+        <textarea name="description" id="description" 
+        class="validate materialize-textarea" required value="{{data.description}}">
+        </textarea>
         <label for="description">Description</label>
         <span class="helper-text" data-error="Text description"></span>
     </div>

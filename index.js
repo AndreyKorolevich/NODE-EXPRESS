@@ -14,6 +14,7 @@ const orderRouter = require('./routes/order');
 const authRouter = require('./routes/auth');
 const costomMiddleware = require('./middleware/variables');
 const userMIddleware = require('./middleware/user-middleware');
+const error = require('./middleware/error')
 const keys = require('./keys/keys');
 const app = express();
 
@@ -52,7 +53,7 @@ app.use('/scooters', scootersRouter);
 app.use('/shopcart', shopcartRouter);
 app.use('/order', orderRouter);
 app.use('/auth', authRouter);
-
+app.use(error);
 const PORT = process.env.PORT || 3000
 
 async function start() {
