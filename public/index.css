@@ -28,3 +28,8 @@ margin-top: 20px;
     background:rosybrown ;
     color: crimson;
 }
+
+.avatar{
+   max-width: 400px; 
+   height: auto;
+}

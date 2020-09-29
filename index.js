@@ -12,9 +12,11 @@ const scootersRouter = require('./routes/scooters');
 const shopcartRouter = require('./routes/shopcart');
 const orderRouter = require('./routes/order');
 const authRouter = require('./routes/auth');
+const profileRouter = require('./routes/profile');
 const costomMiddleware = require('./middleware/variables');
 const userMIddleware = require('./middleware/user-middleware');
-const error = require('./middleware/error')
+const error = require('./middleware/error');
+const fileMiddleware = require('./middleware/file-middleware');
 const keys = require('./keys/keys');
 const app = express();
 
@@ -34,6 +36,7 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: keys.SECRET,
@@ -42,6 +45,7 @@ app.use(session({
     store
 }));
 
+app.use(fileMiddleware.single('avatar'));
 app.use(csurf());
 app.use(flash());
 app.use(costomMiddleware);
@@ -53,6 +57,7 @@ app.use('/scooters', scootersRouter);
 app.use('/shopcart', shopcartRouter);
 app.use('/order', orderRouter);
 app.use('/auth', authRouter);
+app.use('/profile', profileRouter);
 app.use(error);
 const PORT = process.env.PORT || 3000
 

@@ -12,6 +12,9 @@ const user = new Schema({
         type: String,
         required: true
     },
+    avatarURL: {
+        type: String
+    },
     shopCart: {
         elements: [
             {
