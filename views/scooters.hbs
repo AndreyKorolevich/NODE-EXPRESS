@@ -1,10 +1,9 @@
 <h1>Scooters</h1>
-
 {{#if scooters.length}}
-{{#each scooters}}
 <div class="row">
-    <div class="col s5 offset-s3">
-        <div class="card">
+{{#each scooters}}
+    <div class="col xl4 l5 m6 s12 center-align">
+        <div class="card large">
             <div class="card-image">
                 <img src={{picture}} alt={{model}}>
             </div>
@@ -26,8 +25,9 @@
             </div>
         </div>
     </div>
-</div>
+
 {{/each}}
+</div>
 {{else}}
 <p>Donload scooters</p>
 {{/if}}
