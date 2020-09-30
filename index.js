@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const csurf = require('csurf');
+const compression = require('compression');
 const flash = require('connect-flash');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
@@ -48,6 +49,7 @@ app.use(session({
 app.use(fileMiddleware.single('avatar'));
 app.use(csurf());
 app.use(flash());
+app.use(compression());
 app.use(costomMiddleware);
 app.use(userMIddleware);
 

@@ -1,4 +1,5 @@
-module.exports = {
-    MONGODB_URL: 'mongodb+srv://Andrew:arF5vQFnnT12KkLT@cluster0.yrthm.mongodb.net/store',
-    SECRET: 'secret'
+if (process.env.NODE_ENV === 'production') {
+    module.exports = require('./keys.prod');
+} else {
+    module.exports = require('./keys.dev')
 }

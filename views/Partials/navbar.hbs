@@ -1,7 +1,10 @@
 <nav>
     <div class="nav-wrapper teal lighten-2">
         <a href="/" class="brand-logo right">Scooter.BY</a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul class="left hide-on-med-and-down">
             {{#if isMain}}
                 <li class="active"><a href="/">Main</a></li>
             {{else}}
@@ -48,3 +51,49 @@
         </ul>
     </div>
 </nav>
+
+ <ul id="mobile-nav" class="sidenav">
+            {{#if isMain}}
+                <li class="active"><a href="/">Main</a></li>
+            {{else}}
+                <li><a href="/">Main</a></li>
+            {{/if}}
+
+            {{#if isScooters}}
+                <li class="active"><a href="/add">Scooters</a></li>
+            {{else}}
+                <li><a href="/scooters">Scooters</a></li>
+            {{/if}}
+
+            {{#if isAuth}}
+                {{#if isAdd}}
+                     <li class="active"><a href="/">Add scooter</a></li>
+                {{else}}
+                     <li><a href="/add">Add scooter</a></li>
+                {{/if}}
+
+                {{#if isShopcart}}
+                    <li class="active"><a href="/shopcart">Shopcart</a></li>
+                {{else}}
+                    <li><a href="/shopcart">Shopcart</a></li>
+                {{/if}}
+                {{#if isOrder}}
+                    <li class="active"><a href="/order">Order</a></li>
+                {{else}}
+                    <li><a href="/order">Order</a></li>
+                {{/if}}
+                  {{#if isProfile}}
+                    <li class="active"><a href="/profile">Profile</a></li>
+                {{else}}
+                    <li><a href="/profile">Profile</a></li>
+                {{/if}}
+                
+                <li><a href="/auth/logout">Log out</a></li>
+            {{else}}
+                {{#if isLogin}}
+                    <li class="active"><a href="/auth/login#login">Login</a></li>
+                {{else}}
+                    <li><a href="/auth/login#login">Login</a></li>
+                {{/if}}
+            {{/if}}
+        </ul>

@@ -42,7 +42,6 @@ if (shopCartHtml) {
                 .then(shopCart => {
                     if (shopCart.scooters.length) {
                         const html = shopCart.scooters.map(elem => {
-                        console.log(elem)
                             return ` <tr>
                             <td>${elem.scooter.model}</td>
                             <td>${elem.count}</td>
@@ -60,6 +59,5 @@ if (shopCartHtml) {
         }
     })
 }
-
 
 M.Tabs.init(document.querySelectorAll('.tabs'));
