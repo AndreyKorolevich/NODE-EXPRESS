@@ -8,5 +8,4 @@ router.get('/', (req, res) => {
          isMain: true
      })
  })
-
 module.exports = router
