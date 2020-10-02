@@ -30,7 +30,6 @@ const user = new Schema({
                 }
             }
         ]
-
     },
 })
 
