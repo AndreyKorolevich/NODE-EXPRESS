@@ -18,7 +18,9 @@ const costomMiddleware = require('./middleware/variables');
 const userMIddleware = require('./middleware/user-middleware');
 const error = require('./middleware/error');
 const fileMiddleware = require('./middleware/file-middleware');
-const keys = require('./keys/keys');
+const keys = require('./keys');
+
+const PORT = process.env.PORT || 3000
 const app = express();
 
 
@@ -61,7 +63,6 @@ app.use('/order', orderRouter);
 app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
 app.use(error);
-const PORT = process.env.PORT || 3000
 
 async function start() {
     try {  
