@@ -1,7 +1,9 @@
 dist
 doc
+
 keys/keys.dev.js
 .ided
+
 
 # Logs
 logs
